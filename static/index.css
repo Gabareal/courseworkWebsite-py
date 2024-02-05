@@ -1,0 +1,114 @@
+:root {
+    --color-primary: #eae0d5;
+    --color-accent: #c6ac8f;
+    --color-CTA: #5E503F;
+}
+*{font-size: 1rem;font-family: 'Roboto', sans-serif;}
+
+body {
+    margin: 0;
+    background-color: var(--color-primary);
+}
+
+/*-------------NAV BAR------------------*/
+nav {
+    width: 100vw;
+    left: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: var(--color-accent);
+    color: var(--color-CTA);
+}
+
+.navButtons > button{
+    margin: 0 10px;
+    border: none;
+    background-color: var(--color-accent);
+    transition-duration: 0.3s;
+    padding:10px;
+    border-radius: 10px;
+}
+.navButtons > button:hover {
+    background-color: var(--color-CTA);
+    color:var(--color-primary);
+}
+
+#Logo {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+/*-------------REPORT VIEW------------------*/
+
+.report > h1 {
+    text-align: center;
+    font-size: 1.5rem;
+}
+.report > #reportError {
+    text-align: center;
+    background-color: rgba(250, 76, 76, 0.549);
+    width: fit-content;
+}
+
+form {
+    display: grid;
+    padding: 0 20vw;
+    gap: 0 10vw;
+}
+
+form > #resetReport {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--color-CTA);
+    color: var(--color-primary);
+    margin: 10px
+}
+form > #btn-form {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--color-CTA);
+    color: var(--color-primary);
+    margin: 10px;
+}
+
+
+/*-------------DATABASE VIEW------------------*/
+#ViewDisplay > h1 {
+    text-align: center;
+    font-size: 1.5rem;
+}
+#ViewDisplay > #loadDB {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--color-CTA);
+    color: var(--color-primary);
+    margin: 10px;
+}
+#ViewDisplay > #DB {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 5vw 5vw;
+}
+#DB > .ItemDisplay {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+}
+
+/*-------------EDIT VIEW------------------*/
+.found > h1 {
+    text-align: center;
+    font-size: 1.5rem;
+}
+.found > #foundError {
+    text-align: center;
+    background-color: rgba(250, 76, 76, 0.549);
+    width: fit-content;
+}
