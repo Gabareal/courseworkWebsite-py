@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lost and Found</title>
+    <title>Lost and Found | Report</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}" />
 </head>
 
@@ -14,9 +14,9 @@
     <nav>
         <h1 id="Logo">Lost and Found</h1>
         <div class="navButtons">
-            <button id="ViewButton">VIEW LOST ITEMS</button>
-            <button id="ReportButton">REPORT AN ITEM</button>
-            <button id="FoundButton">MARK AN ITEM AS FOUND</button>
+            <a  id="ViewButton" href="{{ url_for('view')}}">VIEW DATABASE</a>
+            <a href="{{ url_for('index') }}">REPORT AN ITEM</a>
+            <a href="{{ url_for('markFound') }}">MARK AN ITEM AS FOUND</a>
         </div>
     </nav>
     <div class="report" id="ReportDisplay">
@@ -24,9 +24,7 @@
         <div id="reportError"></div>
         <form action="/" method="POST" id="form">
             <input type="text" name="item_name" id="name" placeholder="Enter item name..."><br>
-            <label for="date">Date Lost:</label>
-            <input type="date" name="item_date" id="date"><br>
-            <textarea name="item_desc" id="desc" cols="30" rows="10"></textarea><br>
+            <textarea name="item_desc" id="desc" cols="30" rows="10" placeholder="Enter description of item, any outstanding features, shape, color, etc."></textarea><br>
             <input type="text" name="item_location" id="location" placeholder="Enter location found..."><br>
             <input type="text" name="item_owner" id="owner" placeholder="Enter owner... (Put NA if you don't know)"><br>
 
@@ -35,20 +33,6 @@
         </form>
         <p id="output"></p>
     </div>
-    <div class="view" id="ViewDisplay">
-        <h1>VIEW LOST ITEMS</h1>
-        <button id="loadDB">REFRESH</button>
-        <div id="DB"></div>
-    </div>
-    <div class="found" id="FoundDisplay">
-        <h1>What item would you like to mark as found?</h1>
-        <div id="foundError"></div>
-        <input type="text" placeholder="Enter your item here..." id="FoundItemName">
-        <input type="submit" id="LoadFoundItem">
-    </div>
-
-
-
 </body>
 
 </html>
