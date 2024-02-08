@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost and Found | View Database</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='markFound.css') }}" />
+</head>
+<body>
+    <nav>
+        <h1 id="Logo">Lost and Found</h1>
+        <div class="navButtons">
+            <a id="ViewButton" href="{{ url_for('view')}}">VIEW DATABASE</a>
+            <a id=""href="{{ url_for('index') }}">REPORT AN ITEM</a>
+            <a href="{{ url_for('markFound') }}">MARK AN ITEM AS FOUND</a>
+        </div>
+    </nav>
+    <div>
+        <h1>What item would you like to mark as found?</h1>
+        <form method="POST">
+            <input type="text" placeholder="Enter your item here..." id="FoundItemName" name="item_name">
+            <button type="submit">SUBMIT</button>
+        </form>
+    </div>
+</body>

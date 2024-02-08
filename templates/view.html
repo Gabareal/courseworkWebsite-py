@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost and Found | View Database</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='view.css') }}" />
+</head>
+
+<body>
+    <nav>
+        <h1 id="Logo">Lost and Found</h1>
+        <div class="navButtons">
+            <a id="ViewButton" href="{{ url_for('view')}}">VIEW DATABASE</a>
+            <a id=""href="{{ url_for('index') }}">REPORT AN ITEM</a>
+            <a href="{{ url_for('markFound') }}">MARK AN ITEM AS FOUND</a>
+        </div>
+    </nav>
+    <div>
+        <h1>VIEW LOST ITEMS</h1>
+        <form method="POST">
+            <button type='submit' name='refresh' id="loadDB">REFRESH</button>
+        </form>
+        <div id="DB">
+            {% if data %}
+                {% for key, value in data.items() %} 
+                    <li class="items">
+                        <h1>{{ key }}</h1>
+                        <p>{{ value }}</p>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <p>No data available</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
