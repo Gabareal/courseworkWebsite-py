@@ -1,0 +1,57 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reUnitems.co</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #424549;
+            font-family: 'Roboto';
+        }
+        .loginContainer {
+            width: 80vw;
+            height: 80vh;
+            background-color: #282b30;
+            padding: 5vw;
+            border-radius: 20px;
+            display: flex;
+            color: white;
+            justify-content: center;
+        }
+        .loginContainer_text > a{
+            text-decoration: none;
+            color: 	#7289da;
+
+        }
+        .loginContainer > form {
+            display: flex;
+            flex-direction: column;
+        }
+        .loginContainer > form > input{
+            width: 100%;
+            margin: 10%;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="loginContainer">
+        <div class="loginContainer_text">
+            <h1>Welcome back!</h1>
+            <p>Sign in to access your database</p>
+            <a href="">Making a new database? Click here</a>
+        </div>
+        <form method="POST" id="loginContainer_form">
+            <input name="email" type="email" placeholder="coolEmail@gmail.com">
+            <input name="password" type="password" placeholder="coolPassword1234">
+            <input type="submit" value="SUBMIT">
+        </form>
+    </div>
+</body>
+</html>
