@@ -40,3 +40,4 @@ rsa==4.9
 uritemplate==4.1.1
 urllib3==2.2.0
 Werkzeug==3.0.1
+pyrebase==3.0.27
