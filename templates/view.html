@@ -25,14 +25,10 @@
         </form>
         <div id="DB">
             {% if data %}
-                {% for item in data %} 
+                {% for key, value in data.items() %} 
                     <li class="items">
-                        <h1>{{ item.name }}</h1>
-                        <p>Date: {{ item.date }}</p>
-                        <p>Description: {{ item.description }}</p>
-                        <p>Location: {{ item.location }}</p>
-                        <p>Owner: {{ item.owner }}</p>
-                        <p>Is Found: {{ item.isFound }}</p>
+                        <h1>{{ key }}</h1>
+                        <p>{{ value }}</p>
                     </li>
                 {% endfor %}
             {% else %}
