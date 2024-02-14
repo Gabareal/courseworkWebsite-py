@@ -1,38 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>reUnitems.co | Report</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}" />
-</head>
-
-
-<body>
-    <nav>
-        <h1 id="Logo">Lost and Found</h1>
-        <div class="navButtons">
-            <a href="{{ url_for('view')}}">VIEW DATABASE</a>
-            <a href="{{ url_for('report') }}">REPORT AN ITEM</a>
-            <a href="{{ url_for('markFound') }}">MARK AN ITEM AS FOUND</a>
-        </div>
-    </nav>
-   <div class="report" id="ReportDisplay">
+{% extends "protected.html" %}
+{% block content %}
+    <div class="report" id="ReportDisplay">
         <h1>REPORT AN ITEM</h1>
         <div id="reportError"></div>
-        <form action="/report" method="POST" id="form">
+        <form action="/report" method="POST" id="form" enctype="multipart/form-data">
             <input type="text" name="item_name" id="name" placeholder="Enter item name..."><br>
-            <textarea name="item_desc" id="desc" cols="30" rows="10" placeholder="Enter description of item, any outstanding features, shape, color, etc."></textarea><br>
+            <textarea name="item_desc" id="desc" cols="30" rows="10" placeholder="Enter description of item, any distinctive features, shape, color, etc."></textarea><br>
             <input type="text" name="item_location" id="location" placeholder="Enter location found..."><br>
             <input type="text" name="item_owner" id="owner" placeholder="Enter owner... (Put NA if you don't know)"><br>
+            <input type="file" name="image" id="image"><br>
 
             <input type="reset" value="RESET"id="resetReport">
             <input type="submit"value="SUBMIT" id="btn-form">
         </form>
         <p id="output"></p>
     </div>
-</body>
-
-</html>
+{% endblock %}
