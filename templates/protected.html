@@ -61,10 +61,8 @@
     </div>
     <script>
         let checkCred = () => {
-            if (!window.sessionStorage.getItem("user-cred")) {
-                console.log(sessionStorage.getItem("user-cred"))
-                console.log(sessionStorage)
-                alert("You are not signed in!")
+            if (!window.sessionStorage.getItem("user-creds")) {
+                console.log(sessionStorage.getItem("user-creds"))
             }
         }
         window.addEventListener('load', checkCred);
