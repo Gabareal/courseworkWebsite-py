@@ -1,13 +1,24 @@
-from flask import Flask, render_template, request, url_for, request
+from flask import Flask, render_template, request, url_for, request, session,redirect
 import firebase_admin
-from firebase_admin import db,credentials
+from firebase_admin import db,credentials, auth,storage
 import datetime
+import uuid
+from uuid import uuid4
 
 cred = credentials.Certificate("api/key.json")
 firebase_admin.initialize_app(cred,{"databaseURL":'https://coursework-7e5bd-default-rtdb.asia-southeast1.firebasedatabase.app'})
 ref = db.reference("/items")
 
 app = Flask(__name__)
+# Initialize Firebase Storage client
+bucket = storage.bucket("coursework-7e5bd.appspot.com")  # Use the storage bucket URL here
+@app.route('/', methods=['POST','GET'])
+def login():
+    return render_template('login.html')
+
+@app.route('/protected')
+def protected():
+    return render_template('protected.html')
 
 @app.route('/report', methods=['POST','GET'])
 def report():
@@ -21,6 +32,37 @@ def report():
             form_errors += "Location "
         if request.form['item_owner'] == "":
             form_errors += "Owner "
+        image_file = request.files['image']
+        image_name = str(uuid4()) + ".png"
+        image_path = "api/" + image_name
+        image_file.save(image_path)
+
+        # Create new token
+        new_token = str(uuid4())
+
+        # Destination path in Firebase Storage
+        img_src = "images/" + image_name
+        blob = bucket.blob(img_src)
+
+        # Set metadata for the image
+        metadata = {"firebaseStorageDownloadTokens": new_token}
+        blob.metadata = metadata
+
+        # Upload the image file to Firebase Storage
+        blob.upload_from_filename(filename=image_path, content_type='image/png')
+
+        # Make the image publicly accessible
+        blob.make_public()
+
+        # Get the public URL of the uploaded image
+        image_url = blob.public_url
+
+        # Store metadata about the uploaded image in Firebase Realtime Database
+        image_metadata = {
+            'filename': image_name,
+            'url': image_url,
+            'timestamp': str(datetime.datetime.now())
+        }
         if len(form_errors) == 0:
             itemUpload = ref.child(request.form['item_name'])
             itemUpload.set({
