@@ -1,0 +1,71 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reUnitems | Database</title>
+    <style>
+        :root {
+            --color-primary: #ffffff;
+            --color-accent: gray;
+            --color-CTA: black;
+        }
+        *{font-size: 1rem;font-family: 'Roboto', sans-serif;}
+
+        body {
+            margin: 0;
+            background-color: var(--color-primary);
+        }
+
+        /*-------------NAV BAR------------------*/
+        nav {
+            width: 100vw;
+            left: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            background-color: var(--color-accent);
+            color: var(--color-CTA);
+        }
+
+        .navButtons > a{
+            margin: 0 10px;
+            border: none;
+            background-color: var(--color-accent);
+            transition-duration: 0.3s;
+            padding:2px;
+            color: black;
+            text-decoration: none;
+        }
+        .navButtons > a:hover {
+            border-bottom: 2px black solid;
+        }
+
+        #Logo {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <h1 id="Logo">Lost and Found</h1>
+        <div class="navButtons">
+            <a href="{{ url_for('view')}}">VIEW DATABASE</a>
+            <a href="{{ url_for('report') }}">REPORT AN ITEM</a>
+            <a href="{{ url_for('markFound') }}">MARK AN ITEM AS FOUND</a>
+        </div>
+    </nav>
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+    <script>
+        let checkCred = () => {
+            if (!sessionStorage.getItem("user-cred")) {
+                window.location.href = "/"
+            }
+        }
+        window.addEventListener('load', checkCred);
+    </script>
+</body>
+</html>
