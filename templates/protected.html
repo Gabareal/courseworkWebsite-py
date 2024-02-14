@@ -62,7 +62,8 @@
     <script>
         let checkCred = () => {
             if (!sessionStorage.getItem("user-cred")) {
-                window.location.href = "/"
+                console.log(sessionStorage.getItem("user-cred"))
+                alert("You are not signed in!")
             }
         }
         window.addEventListener('load', checkCred);
