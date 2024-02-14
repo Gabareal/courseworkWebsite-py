@@ -62,6 +62,7 @@
     <script>
         let checkCred = () => {
             if (!window.sessionStorage.getItem("user-creds")) {
+                window.location.href = "/"
                 console.log(sessionStorage.getItem("user-creds"))
             }
         }
