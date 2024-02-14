@@ -8,13 +8,12 @@
         body {
             display: flex;
             justify-content: center;
-            align-items: center;
             background: #424549;
             font-family: 'Roboto';
         }
         .loginContainer {
-            width: 80vw;
-            height: 80vh;
+            width: 50vw;
+            height: 50vh;
             background-color: #282b30;
             padding: 5vw;
             border-radius: 20px;
@@ -47,11 +46,12 @@
             <p>Sign in to access your database</p>
             <a href="">Making a new database? Click here</a>
         </div>
-        <form method="POST" id="loginContainer_form">
-            <input name="email" type="email" placeholder="coolEmail@gmail.com">
-            <input name="password" type="password" placeholder="coolPassword1234">
-            <input type="submit" value="SUBMIT">
-        </form>
+        <div method="POST" id="loginContainer_form">
+            <input id="user_email" name="email" type="email" placeholder="coolEmail@gmail.com">
+            <input id="user_password" name="password" type="password" placeholder="coolPassword1234">
+            <button id="submit">SUBMIT</button>
+        </div>
     </div>
+    <script src="../static/login.js" type="module"></script>
 </body>
 </html>
