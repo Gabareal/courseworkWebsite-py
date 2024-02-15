@@ -7,11 +7,12 @@ from uuid import uuid4
 
 cred = credentials.Certificate("api/key.json")
 firebase_admin.initialize_app(cred,{"databaseURL":'https://coursework-7e5bd-default-rtdb.asia-southeast1.firebasedatabase.app'})
+bucket = storage.bucket("coursework-7e5bd.appspot.com")
 ref = db.reference("/items")
 
 app = Flask(__name__)
-# Initialize Firebase Storage client
-bucket = storage.bucket("coursework-7e5bd.appspot.com")  # Use the storage bucket URL here
+
+    
 @app.route('/', methods=['POST','GET'])
 def login():
     return render_template('login.html')
@@ -19,6 +20,14 @@ def login():
 @app.route('/protected')
 def protected():
     return render_template('protected.html')
+
+@app.route('/addUsers')
+def addUsers():
+    return render_template('addUsers.html')
+
+@app.route('/generateKey')
+def generateKey():
+    return render_template('databaseKey.html')
 
 @app.route('/report', methods=['POST','GET'])
 def report():
