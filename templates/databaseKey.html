@@ -1,0 +1,36 @@
+{% extends "protected.html" %}
+{% block content %}
+    <div>
+        <h1>GENERATE A NEW DATABASE KEY</h1>
+        <div id="key"></div>
+        <button id="generate">GENERATE</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+        import { getDatabase,get,ref,child,set,onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        const firebaseConfig = {
+        apiKey: "AIzaSyBBKv0bFftovEPZhZ_k2XbjrEoATf68O1A",
+        authDomain: "coursework-7e5bd.firebaseapp.com",
+        databaseURL: "https://coursework-7e5bd-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "coursework-7e5bd",
+        storageBucket: "coursework-7e5bd.appspot.com",
+        messagingSenderId: "627904949119",
+        appId: "1:627904949119:web:72cccf95f57b94f30ac84a",
+        measurementId: "G-BL42H0QM79"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+        const dbref = ref(db);
+        const newUUID = uuidv4();
+        document.getElementById('generate').onclick = e => {
+            document.getElementById('key').innerHTML = newUUID
+            const reference = ref(db, 'database/' + newUUID);
+            sessionStorage.setItem("user-database", newUUID)
+        }
+    </script>
+{% endblock %}

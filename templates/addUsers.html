@@ -1,0 +1,70 @@
+{% extends "protected.html" %}
+{% block content %}
+    <div>
+        <h1>ADD USERS</h1>
+            <div class="addUsers">
+                <input type="email" id="user_email">
+                <select name="userPermsList" id="userPermsList">
+                    <option value="admin">ADMIN</option>
+                    <option value="user">USER</option>
+                </select>
+                <button id="submit">SUBMIT</button>
+            </div>
+    </div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+        import { getDatabase,get,ref,child,set,onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getAuth,signInWithEmailAndPassword,createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+
+        const userPermsList = document.getElementById('userPermsList'), 
+        user_email = document.getElementById("user_email"), 
+        submit = document.getElementById('submit');
+
+        const firebaseConfig = {
+        apiKey: "AIzaSyBBKv0bFftovEPZhZ_k2XbjrEoATf68O1A",
+        authDomain: "coursework-7e5bd.firebaseapp.com",
+        databaseURL: "https://coursework-7e5bd-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "coursework-7e5bd",
+        storageBucket: "coursework-7e5bd.appspot.com",
+        messagingSenderId: "627904949119",
+        appId: "1:627904949119:web:72cccf95f57b94f30ac84a",
+        measurementId: "G-BL42H0QM79"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth(app);
+        const db = getDatabase();
+        const dbref = ref(db);
+
+        window.addEventListener('load', checkCred = () => {
+            if (sessionStorage.getItem("user-perms")=='"user"') {
+                window.location.href = "/protected"
+            }
+        }); 
+
+        function setUserPerms(userId,permissions) {
+            const reference = ref(db, 'users/' + userId);
+            set(reference,{
+                permissions: permissions
+            })
+        }
+
+        submit.onclick = e => {
+            if (user_email.value == ''){
+                alert("Missing values! User email")
+            } else {
+                console.log("1")
+                createUserWithEmailAndPassword(auth,user_email.value,"placeholder")
+                .then((credentials) => {
+                    console.log("2")
+                    setUserPerms(credentials.user.uid,userPermsList.value)
+                })
+            }
+        }
+
+
+    </script>
+{% endblock %}
