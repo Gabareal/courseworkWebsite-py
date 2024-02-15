@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>reUnitems | Database</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         :root {
             --color-primary: #ffffff;
@@ -51,9 +52,10 @@
     <nav>
         <h1 id="Logo">Lost and Found</h1>
         <div class="navButtons">
-            <a href="{{ url_for('view')}}">VIEW DATABASE</a>
-            <a href="{{ url_for('report') }}">REPORT AN ITEM</a>
-            <a href="{{ url_for('markFound') }}">MARK AN ITEM AS FOUND</a>
+            <a href="{{ url_for('view')}}"><i class="fa fa-list"></i></a>
+            <a href="{{ url_for('report') }}"><i class="fa fa-upload"></i></a>
+            <a href="{{ url_for('markFound') }}"><i class="fa fa-edit"></i></a>
+            <a href="{{ url_for('addUsers')}}"><i class="fa fa-users" style="display: none" id="addUsers"></i></a>
         </div>
     </nav>
     <div class="content">
@@ -61,11 +63,14 @@
     </div>
     <script>
         let checkCred = () => {
-            if (!window.sessionStorage.getItem("user-creds")) {
+            if (!sessionStorage.getItem("user-creds")) {
                 window.location.href = "/"
-                console.log(sessionStorage.getItem("user-creds"))
+            }
+            if(sessionStorage.getItem("user-perms")=='"admin"' || sessionStorage.getItem("user-perms")=='"creator"'){
+                document.getElementById("addUsers").style.display = "inline";
             }
         }
+
         window.addEventListener('load', checkCred);
     </script>
 </body>
