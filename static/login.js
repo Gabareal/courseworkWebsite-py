@@ -47,8 +47,6 @@ function getUserPerms(userId) {
 
 
 submit.onclick = e => {
-    setUserPerms("FNioAkbtGFQNUgcpsfNoU9CCD893","admin")
-    setUserPerms("O4vlZPyPHtcVlgeBmqBwbZb9Ykq1","user")
     signInWithEmailAndPassword(auth, user_email.value, user_password.value)
     .then((credentials)=>{
         get(child(dbref,'UsersAuthList/'+ credentials.user.uid)).then((snapshot)=>{
