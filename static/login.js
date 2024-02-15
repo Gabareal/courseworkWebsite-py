@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
-import { getDatabase,get,ref,child } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+import { getDatabase,get,ref,child,set,onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 import { getAuth,signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
 
 const submit = document.getElementById('submit'), 
@@ -26,18 +26,39 @@ const auth = getAuth(app);
 const db = getDatabase();
 const dbref = ref(db);
 
+function getUserPerms(userId) {
+    console.log(userId)
+    const reference = ref(db, 'users/' + userId);
+    return get(reference)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+            console.log(snapshot.val().permissions)
+          return snapshot.val().permissions;
+        } else {
+          console.error('User data not found');
+          return null;
+        }
+      })
+      .catch((error) => {
+        console.error('Error getting user permissions:', error);
+        return null;
+      });
+  }
+
+
 submit.onclick = e => {
-    console.log(sessionStorage)
+    setUserPerms("FNioAkbtGFQNUgcpsfNoU9CCD893","admin")
+    setUserPerms("O4vlZPyPHtcVlgeBmqBwbZb9Ykq1","user")
     signInWithEmailAndPassword(auth, user_email.value, user_password.value)
     .then((credentials)=>{
         get(child(dbref,'UsersAuthList/'+ credentials.user.uid)).then((snapshot)=>{
             if (snapshot.exists){
-                sessionStorage.setItem("user-info", JSON.stringify({
-                    userEmail: user_email.value
-                }))
+                sessionStorage.setItem("user-info", JSON.stringify({userEmail: user_email.value}))
                 sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
-                console.log(sessionStorage)
-                window.location.href = "protected"
+                getUserPerms(credentials.user.uid).then((permissions)=> {
+                    sessionStorage.setItem("user-perms", JSON.stringify(permissions));
+                    window.location.href = "protected"
+                })
             }
         })
     })
