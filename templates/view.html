@@ -1,5 +1,6 @@
 {% extends "protected.html" %}
 {% block content %}
+    <link rel="stylesheet" href="../static/view.css">
     <div>
         <h1>VIEW LOST ITEMS</h1>
         <form method="POST">
@@ -14,6 +15,7 @@
                         <p>Description: {{ value.description }}</p>
                         <p>isFound: {{ value.description }}</p>
                         <p>Location: {{ value.location }}</p>
+                        <img src={{value.imgurl}} id="items_img">
                     </li>
                 {% endfor %}
             {% else %}
