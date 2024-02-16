@@ -41,37 +41,26 @@ def report():
             form_errors += "Location "
         if request.form['item_owner'] == "":
             form_errors += "Owner "
+         # Get image file from form
         image_file = request.files['image']
-        image_name = str(uuid4()) + ".png"
-        image_path = "api/" + image_name
+
+        # Save the image file to a local temporary directory
+        image_path = "../img"
         image_file.save(image_path)
 
         # Create new token
-        new_token = str(uuid4())
-
-        # Destination path in Firebase Storage
-        img_src = "images/" + image_name
+        img_src = "items/" + request.form['item_name'] + ".png"
         blob = bucket.blob(img_src)
-
-        # Set metadata for the image
-        metadata = {"firebaseStorageDownloadTokens": new_token}
-        blob.metadata = metadata
-
-        # Upload the image file to Firebase Storage
+        metadata = {"firebaseStorageDownloadTokens": request.form['item_name']} # Set metadata for the image
+        blob.metadata = metadata # Upload the image file to Firebase Storage
         blob.upload_from_filename(filename=image_path, content_type='image/png')
-
-        # Make the image publicly accessible
-        blob.make_public()
-
-        # Get the public URL of the uploaded image
-        image_url = blob.public_url
-
-        # Store metadata about the uploaded image in Firebase Realtime Database
+        blob.make_public() # Make the image publicly accessible
+        image_url = blob.public_url # Get the public URL of the uploaded image
         image_metadata = {
-            'filename': image_name,
+            'filename': img_src,
             'url': image_url,
             'timestamp': str(datetime.datetime.now())
-        }
+        } # Store metadata about the uploaded image in Firebase Realtime Database
         if len(form_errors) == 0:
             itemUpload = ref.child(request.form['item_name'])
             itemUpload.set({
@@ -80,6 +69,7 @@ def report():
                 'location': request.form['item_location'],
                 'owner': request.form['item_owner'],
                 'isFound': False,
+                'imgurl': image_metadata['url']
             })
             return 'Form submitted! Thank you for reporting!'
         else:
