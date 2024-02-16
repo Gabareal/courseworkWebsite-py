@@ -60,7 +60,7 @@ form>button {
 }
 #DB {
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 5vw 5vw;
 }
 .items {
@@ -69,4 +69,8 @@ form>button {
     padding: 10px;
     border-radius: 10px;
     font-size: 1.2rem;
+}
+
+#items_img {
+    width: 500px; height: 500px;
 }
